@@ -14,9 +14,7 @@ def download():
         youtubeObject = YouTube(youtubeLink, on_progress_callback=on_progress)
         video = youtubeObject.streams.get_highest_resolution()
         title = youtubeObject.title
-        progress_bar.start()
         video.download()
-        progress_bar.stop()
     except Exception as e:
         message.configure(text=f"Error :{e}", bg_color="red" )
         return None
@@ -30,8 +28,7 @@ def on_progress(stream, chunk, bytes_remaining):
     progress = round((bytes_downloaded / total_size) * 100, 2)
     progress_percentage.configure(text=str(progress) + "%")
     progress_percentage.update()
-    print(progress)
-    progress_bar.set(progress)
+    progress_bar.set(progress / 100)
 
 # System settings
 
